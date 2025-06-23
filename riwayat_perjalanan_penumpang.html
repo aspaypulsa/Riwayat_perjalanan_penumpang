@@ -17,79 +17,78 @@
         }
         
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: linear-gradient(135deg, #1a237e, #4a148c);
             min-height: 100vh;
-            padding: 20px;
-            color: #333;
+            padding: 15px;
+            color: #fff;
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 800px;
             margin: 0 auto;
         }
         
         header {
             text-align: center;
-            padding: 20px 0;
-            margin-bottom: 20px;
+            padding: 15px 0;
+            margin-bottom: 10px;
         }
         
         header h1 {
-            font-size: 2.2rem;
+            font-size: 1.6rem;
             margin-bottom: 5px;
-            color: #2c3e50;
-        }
-        
-        header p {
-            font-size: 1.1rem;
-            color: #7f8c8d;
-            max-width: 600px;
-            margin: 0 auto;
+            color: #fff;
+            font-weight: 600;
         }
         
         .history-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
-            gap: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
         
         .no-history {
-            background-color: white;
+            background-color: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
             padding: 30px;
             text-align: center;
-            grid-column: 1 / -1;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .no-history h2 {
-            font-size: 1.6rem;
-            color: #3498db;
+            font-size: 1.4rem;
+            color: #fff;
             margin-bottom: 10px;
         }
         
         .no-history p {
             font-size: 1rem;
-            color: #7f8c8d;
+            color: #e0e0e0;
         }
         
         .card {
-            background-color: white;
-            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             display: flex;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            height: 120px;
+            transition: all 0.3s ease;
+            height: 90px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
         }
         
         .card:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            background-color: rgba(255, 255, 255, 0.15);
         }
         
         .card-left {
-            width: 100px;
+            width: 80px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -98,60 +97,61 @@
         }
         
         .vehicle-icon {
-            font-size: 1.8rem;
-            margin-bottom: 8px;
-            color: #3498db;
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            color: #64ffda;
         }
         
         .date {
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             text-align: center;
-            color: #7f8c8d;
+            color: #bb86fc;
             font-weight: 500;
         }
         
         .card-center {
             flex: 1;
-            padding: 15px 10px;
-            border-left: 1px solid #eee;
-            border-right: 1px solid #eee;
+            padding: 10px;
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .route {
             display: flex;
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
         
         .from, .to {
-            font-weight: 600;
-            font-size: 0.95rem;
+            font-weight: 500;
+            font-size: 0.9rem;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
-            max-width: 150px;
+            max-width: 130px;
+            color: #fff;
         }
         
         .arrow {
             margin: 0 8px;
-            color: #95a5a6;
-            font-size: 1rem;
+            color: #bb86fc;
+            font-size: 0.9rem;
         }
         
         .driver {
             display: flex;
             align-items: center;
-            font-size: 0.9rem;
-            color: #7f8c8d;
+            font-size: 0.8rem;
+            color: #e0e0e0;
         }
         
         .driver i {
             margin-right: 6px;
-            color: #3498db;
+            color: #bb86fc;
         }
         
         .card-right {
-            width: 120px;
+            width: 100px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -160,60 +160,50 @@
         }
         
         .price {
-            font-weight: 700;
-            font-size: 1.1rem;
-            margin-bottom: 8px;
-            color: #2ecc71;
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 5px;
+            color: #64ffda;
             text-align: center;
         }
         
         .status {
-            padding: 5px 12px;
+            padding: 4px 10px;
             border-radius: 20px;
             font-weight: 600;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             width: fit-content;
         }
         
         .status-selesai {
-            background-color: #d4edda;
-            color: #155724;
+            background-color: rgba(46, 204, 113, 0.2);
+            color: #64ffda;
+            border: 1px solid #64ffda;
         }
         
         .status-dibatalkan {
-            background-color: #f8d7da;
-            color: #721c24;
+            background-color: rgba(231, 76, 60, 0.2);
+            color: #ff6b6b;
+            border: 1px solid #ff6b6b;
         }
         
         .status-pending {
-            background-color: #e2e3e5;
-            color: #383d41;
-        }
-        
-        .card.selesai .card-left {
-            background-color: rgba(212, 237, 218, 0.3);
-        }
-        
-        .card.dibatalkan .card-left {
-            background-color: rgba(248, 215, 218, 0.3);
-        }
-        
-        .card.pending .card-left {
-            background-color: rgba(226, 227, 229, 0.3);
+            background-color: rgba(149, 165, 166, 0.2);
+            color: #b0bec5;
+            border: 1px solid #b0bec5;
         }
         
         .loading {
             text-align: center;
-            padding: 40px;
-            grid-column: 1 / -1;
+            padding: 30px;
         }
         
         .spinner {
             width: 40px;
             height: 40px;
-            border: 4px solid rgba(52, 152, 219, 0.2);
+            border: 4px solid rgba(255, 255, 255, 0.2);
             border-radius: 50%;
-            border-top-color: #3498db;
+            border-top-color: #bb86fc;
             animation: spin 1s ease-in-out infinite;
             margin: 0 auto 15px;
         }
@@ -222,82 +212,171 @@
             to { transform: rotate(360deg); }
         }
         
-        .filter-container {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 20px;
-            gap: 10px;
+        /* Modal Styling */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            overflow-y: auto;
+            backdrop-filter: blur(5px);
         }
         
-        .filter-btn {
-            padding: 8px 15px;
-            border-radius: 20px;
-            background: white;
-            border: 1px solid #ddd;
+        .modal-content {
+            background: linear-gradient(135deg, #1a237e, #4a148c);
+            margin: 5% auto;
+            padding: 25px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            color: #fff;
             cursor: pointer;
-            font-weight: 500;
+            background: rgba(255, 255, 255, 0.1);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             transition: all 0.3s ease;
         }
         
-        .filter-btn.active {
-            background: #3498db;
-            color: white;
-            border-color: #3498db;
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+        
+        .modal-header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .modal-header h2 {
+            font-size: 1.6rem;
+            color: #64ffda;
+        }
+        
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .detail-label {
+            font-weight: 500;
+            color: #bb86fc;
+            font-size: 0.95rem;
+        }
+        
+        .detail-value {
+            font-weight: 500;
+            color: #fff;
+            text-align: right;
+            max-width: 70%;
+        }
+        
+        .map-container {
+            margin-top: 20px;
+            height: 250px;
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .no-map {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #bb86fc;
+            font-weight: 500;
         }
         
         @media (max-width: 768px) {
-            .history-container {
-                grid-template-columns: 1fr;
+            .container {
+                padding: 10px;
             }
             
             .card {
                 height: auto;
+            }
+            
+            .card-left, .card-center, .card-right {
+                padding: 8px;
+            }
+            
+            .from, .to {
+                max-width: 100px;
+                font-size: 0.85rem;
+            }
+            
+            .modal-content {
+                padding: 20px 15px;
+                width: 95%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.4rem;
+            }
+            
+            .card {
                 flex-direction: column;
+                height: auto;
             }
             
             .card-left, .card-center, .card-right {
                 width: 100%;
                 border: none;
-                border-bottom: 1px solid #eee;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             }
             
             .card-left {
                 flex-direction: row;
                 justify-content: space-between;
-                padding: 10px 15px;
-            }
-            
-            .card-center {
-                padding: 15px;
             }
             
             .card-right {
                 flex-direction: row;
                 justify-content: space-between;
-                padding: 10px 15px;
+                align-items: center;
             }
             
             .vehicle-icon {
                 margin-bottom: 0;
             }
             
-            .from, .to {
-                max-width: 130px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .filter-container {
-                flex-wrap: wrap;
+            .price {
+                margin-bottom: 0;
             }
             
-            header h1 {
-                font-size: 1.8rem;
-            }
-            
-            .from, .to {
-                max-width: 120px;
-                font-size: 0.9rem;
+            .map-container {
+                height: 200px;
             }
         }
     </style>
@@ -306,15 +385,7 @@
     <div class="container">
         <header>
             <h1>Riwayat Perjalanan</h1>
-            <p>Daftar perjalanan yang pernah Anda lakukan</p>
         </header>
-        
-        <div class="filter-container">
-            <button class="filter-btn active" data-filter="all">Semua</button>
-            <button class="filter-btn" data-filter="selesai">Selesai</button>
-            <button class="filter-btn" data-filter="dibatalkan_penumpang">Dibatalkan</button>
-            <button class="filter-btn" data-filter="pending">Pending</button>
-        </div>
         
         <div class="history-container">
             <div class="loading">
@@ -324,9 +395,37 @@
         </div>
     </div>
 
+    <!-- Modal untuk Detail Perjalanan -->
+    <div id="detailModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div class="modal-header">
+                <h2>Detail Perjalanan</h2>
+            </div>
+            <div id="modalBody">
+                <!-- Detail akan dimuat di sini -->
+            </div>
+        </div>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             let historyData = [];
+            let modal = document.getElementById("detailModal");
+            let modalBody = document.getElementById("modalBody");
+            let span = document.getElementsByClassName("close-btn")[0];
+            
+            // Fungsi untuk menutup modal
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
+            
+            // Tutup modal jika klik di luar konten
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
             
             // Fungsi untuk mendapatkan parameter dari URL
             function getUrlParams() {
@@ -376,28 +475,114 @@
                 return '<i class="fas fa-taxi"></i>';
             }
             
-            // Fungsi untuk merender riwayat dengan filter
-            function renderHistory(filter = 'all') {
-                const container = document.querySelector('.history-container');
+            // Fungsi untuk menampilkan detail perjalanan
+            function showJourneyDetails(order) {
+                // Tentukan kelas status
+                let statusClass = '';
+                let statusText = '';
                 
-                // Filter data
-                const filteredData = filter === 'all' 
-                    ? historyData 
-                    : historyData.filter(item => item.status === filter);
+                if (order.status === 'selesai') {
+                    statusClass = 'selesai';
+                    statusText = 'Selesai';
+                } else if (order.status === 'dibatalkan_penumpang') {
+                    statusClass = 'dibatalkan';
+                    statusText = 'Dibatalkan';
+                } else {
+                    statusClass = 'pending';
+                    statusText = 'Pending';
+                }
+                
+                // Format data
+                const formattedDate = formatDate(order.timestamp);
+                const formattedTime = formatTime(order.timestamp);
+                const formattedPrice = formatPrice(order.totalPrice);
+                const vehicleIcon = getVehicleIcon(order.vehicle);
+                
+                // Bangun konten modal
+                let modalContent = `
+                    <div class="detail-item">
+                        <span class="detail-label">Tanggal & Waktu</span>
+                        <span class="detail-value">${formattedDate} ${formattedTime}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Status</span>
+                        <span class="detail-value"><span class="status status-${statusClass}">${statusText}</span></span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Jemput</span>
+                        <span class="detail-value">${order.from || '-'}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Tujuan</span>
+                        <span class="detail-value">${order.to || '-'}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Kendaraan</span>
+                        <span class="detail-value">${order.vehicle || '-'}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Nama Driver</span>
+                        <span class="detail-value">${order.driverName || '-'}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">No. HP Driver</span>
+                        <span class="detail-value">${order.driverPhone || '-'}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Plat Kendaraan</span>
+                        <span class="detail-value">${order.vehicleNumber || '-'}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Jarak</span>
+                        <span class="detail-value">${order.distance || '-'}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Durasi</span>
+                        <span class="detail-value">${order.duration || '-'}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Total Harga</span>
+                        <span class="detail-value">${formattedPrice}</span>
+                    </div>
+                `;
+                
+                // Tambahkan peta jika status selesai dan ada data koordinat
+                if (order.status === 'selesai' && order.from_latlng && order.to_latlng) {
+                    const mapUrl = `https://map.rasitech.org/?direction={"origin":"${order.from_latlng}","destination":"${order.to_latlng}"}`;
+                    modalContent += `
+                        <div class="map-container">
+                            <iframe src="${mapUrl}" title="Rute Perjalanan"></iframe>
+                        </div>
+                    `;
+                } else if (order.status === 'selesai') {
+                    modalContent += `
+                        <div class="map-container">
+                            <div class="no-map">Peta tidak tersedia untuk perjalanan ini</div>
+                        </div>
+                    `;
+                }
+                
+                modalBody.innerHTML = modalContent;
+                modal.style.display = "block";
+            }
+            
+            // Fungsi untuk merender riwayat
+            function renderHistory() {
+                const container = document.querySelector('.history-container');
                 
                 container.innerHTML = '';
                 
-                if (filteredData.length === 0) {
+                if (historyData.length === 0) {
                     container.innerHTML = `
                         <div class="no-history">
-                            <h2>Tidak ada perjalanan</h2>
-                            <p>Tidak ditemukan riwayat perjalanan dengan status ini</p>
+                            <h2>Belum ada riwayat perjalanan</h2>
+                            <p>Anda belum memiliki riwayat perjalanan. Mulai pesan perjalanan untuk melihat riwayat di sini.</p>
                         </div>
                     `;
                     return;
                 }
                 
-                filteredData.forEach(order => {
+                historyData.forEach(order => {
                     // Tentukan kelas status
                     let statusClass = '';
                     let statusText = '';
@@ -419,34 +604,39 @@
                     const formattedPrice = formatPrice(order.totalPrice);
                     const vehicleIcon = getVehicleIcon(order.vehicle);
                     
-                    container.innerHTML += `
-                        <div class="card ${statusClass}">
-                            <div class="card-left">
-                                <div class="vehicle-icon">${vehicleIcon}</div>
-                                <div class="date">
-                                    <div>${formattedDate}</div>
-                                    <div>${formattedTime}</div>
-                                </div>
-                            </div>
-                            
-                            <div class="card-center">
-                                <div class="route">
-                                    <div class="from">${order.from || '-'}</div>
-                                    <div class="arrow">→</div>
-                                    <div class="to">${order.to || '-'}</div>
-                                </div>
-                                <div class="driver">
-                                    <i class="fas fa-user"></i>
-                                    ${order.driverName || 'Driver tidak tersedia'}
-                                </div>
-                            </div>
-                            
-                            <div class="card-right">
-                                <div class="price">${formattedPrice}</div>
-                                <div class="status status-${statusClass}">${statusText}</div>
+                    const card = document.createElement('div');
+                    card.className = `card ${statusClass}`;
+                    card.innerHTML = `
+                        <div class="card-left">
+                            <div class="vehicle-icon">${vehicleIcon}</div>
+                            <div class="date">
+                                <div>${formattedDate}</div>
+                                <div>${formattedTime}</div>
                             </div>
                         </div>
+                        
+                        <div class="card-center">
+                            <div class="route">
+                                <div class="from">${order.from || '-'}</div>
+                                <div class="arrow">→</div>
+                                <div class="to">${order.to || '-'}</div>
+                            </div>
+                            <div class="driver">
+                                <i class="fas fa-user"></i>
+                                ${order.driverName || 'Driver tidak tersedia'}
+                            </div>
+                        </div>
+                        
+                        <div class="card-right">
+                            <div class="price">${formattedPrice}</div>
+                            <div class="status status-${statusClass}">${statusText}</div>
+                        </div>
                     `;
+                    
+                    // Tambahkan event listener untuk menampilkan detail
+                    card.addEventListener('click', () => showJourneyDetails(order));
+                    
+                    container.appendChild(card);
                 });
             }
             
@@ -487,16 +677,6 @@
                     
                     // Render data
                     renderHistory();
-                    
-                    // Setup event listeners untuk filter
-                    document.querySelectorAll('.filter-btn').forEach(btn => {
-                        btn.addEventListener('click', function() {
-                            document.querySelectorAll('.filter-btn').forEach(b => 
-                                b.classList.remove('active'));
-                            this.classList.add('active');
-                            renderHistory(this.dataset.filter);
-                        });
-                    });
                 } catch (error) {
                     console.error('Error fetching history:', error);
                     document.querySelector('.history-container').innerHTML = `

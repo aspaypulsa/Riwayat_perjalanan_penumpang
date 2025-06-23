@@ -378,6 +378,16 @@
             to { transform: rotate(360deg); }
         }
         
+        .error-message {
+            background: #ffebee;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #c62828;
+            border: 1px solid #ffcdd2;
+        }
+        
         @media (max-width: 768px) {
             .order-content {
                 grid-template-columns: 1fr;
@@ -419,6 +429,8 @@
             <h1><i class="fas fa-history"></i> Riwayat Perjalanan</h1>
             <p>Lihat semua perjalanan yang pernah Anda lakukan</p>
         </div>
+        
+        <div id="errorContainer"></div>
         
         <div class="filter-container">
             <div class="filter-options">
@@ -464,29 +476,28 @@
     </div>
     
     <script>
-        // Konfigurasi Firebase - Ganti dengan konfigurasi Anda
-        const firebaseConfig = {
-            apiKey: "AIzaSyA6jTp4V5qCx5GmW0c0pZ1q6J8ZvY3XpX0",
-            authDomain: "aspay-pulsa-app.firebaseapp.com",
-            projectId: "aspay-pulsa-app",
-            storageBucket: "aspay-pulsa-app.appspot.com",
-            messagingSenderId: "123456789012",
-            appId: "1:123456789012:web:abcdef1234567890abcdef"
-        };
-        
-        // Inisialisasi Firebase
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
-        
-        // Dapatkan user ID dari parameter URL
+        // Dapatkan parameter URL
         const urlParams = new URLSearchParams(window.location.search);
-        const userId = urlParams.get('userId');
+        const userId = urlParams.get('userID');
+        const firebaseConfigEncoded = urlParams.get('firebaseConfig');
         
         // Get DOM elements
         const ordersContainer = document.getElementById('ordersContainer');
+        const errorContainer = document.getElementById('errorContainer');
         const detailModal = document.getElementById('detailModal');
         const closeModal = document.getElementById('closeModal');
         const modalBody = document.getElementById('modalBody');
+        
+        // Fungsi untuk menampilkan pesan error
+        function showError(message) {
+            errorContainer.innerHTML = `
+                <div class="error-message">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h3>Terjadi Kesalahan</h3>
+                    <p>${message}</p>
+                </div>
+            `;
+        }
         
         // Fungsi untuk memformat tanggal
         function formatDate(timestamp) {
@@ -519,8 +530,8 @@
                 ordersContainer.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
                 
                 // Dapatkan data dari Firestore
-                let ordersRef = db.collection('orders')
-                    .where('userId', '==', userId)
+                let ordersRef = firebase.firestore().collection('orders')
+                    .where('userID', '==', userId)
                     .orderBy('timestamp', 'desc');
                 
                 // Terapkan filter jika diperlukan
@@ -552,6 +563,7 @@
                 displayOrders(orders);
             } catch (error) {
                 console.error("Error loading travel history:", error);
+                showError("Gagal memuat riwayat perjalanan. Silakan coba lagi.");
                 showNoDataMessage("Terjadi Kesalahan");
             }
         }
@@ -581,10 +593,20 @@
                         statusText = "Menunggu";
                         statusClass = "status-pending";
                         break;
-                    default:
+                    case "canceled":
                         statusText = "Dibatalkan";
                         statusClass = "status-canceled";
+                        break;
+                    default:
+                        statusText = order.status;
+                        statusClass = "status-pending";
                 }
+                
+                // Driver information
+                const driverName = order.driverName || "Belum ditugaskan";
+                const driverPhone = order.driverPhone || "-";
+                const vehicleNumber = order.vehicleNumber || "-";
+                const vehicleType = order.vehicleType || "-";
                 
                 // Buat card pesanan
                 const orderCard = document.createElement('div');
@@ -625,19 +647,19 @@
                             <div class="driver-details">
                                 <div class="driver-detail">
                                     <div class="detail-label">Nama</div>
-                                    <div class="driver-value">${order.driverName || "Belum ditugaskan"}</div>
+                                    <div class="driver-value">${driverName}</div>
                                 </div>
                                 <div class="driver-detail">
                                     <div class="detail-label">No. HP</div>
-                                    <div class="driver-value">${order.driverPhone || "-"}</div>
+                                    <div class="driver-value">${driverPhone}</div>
                                 </div>
                                 <div class="driver-detail">
                                     <div class="detail-label">No. Kendaraan</div>
-                                    <div class="driver-value">${order.vehicleNumber || "-"}</div>
+                                    <div class="driver-value">${vehicleNumber}</div>
                                 </div>
                                 <div class="driver-detail">
                                     <div class="detail-label">Jenis Kendaraan</div>
-                                    <div class="driver-value">${order.vehicleType || "-"}</div>
+                                    <div class="driver-value">${vehicleType}</div>
                                 </div>
                             </div>
                         </div>
@@ -676,10 +698,20 @@
                     statusText = "Menunggu";
                     statusClass = "status-pending";
                     break;
-                default:
+                case "canceled":
                     statusText = "Dibatalkan";
                     statusClass = "status-canceled";
+                    break;
+                default:
+                    statusText = order.status;
+                    statusClass = "status-pending";
             }
+            
+            // Driver information
+            const driverName = order.driverName || "Belum ditugaskan";
+            const driverPhone = order.driverPhone || "-";
+            const vehicleNumber = order.vehicleNumber || "-";
+            const vehicleType = order.vehicleType || "-";
             
             // Bangun konten modal
             modalBody.innerHTML = `
@@ -722,19 +754,19 @@
                     <div class="driver-details-grid">
                         <div class="modal-detail">
                             <div class="modal-label">Nama Driver</div>
-                            <div class="modal-value">${order.driverName || "Belum ditugaskan"}</div>
+                            <div class="modal-value">${driverName}</div>
                         </div>
                         <div class="modal-detail">
                             <div class="modal-label">No. HP Driver</div>
-                            <div class="modal-value">${order.driverPhone || "-"}</div>
+                            <div class="modal-value">${driverPhone}</div>
                         </div>
                         <div class="modal-detail">
                             <div class="modal-label">No. Kendaraan</div>
-                            <div class="modal-value">${order.vehicleNumber || "-"}</div>
+                            <div class="modal-value">${vehicleNumber}</div>
                         </div>
                         <div class="modal-detail">
                             <div class="modal-label">Jenis Kendaraan</div>
-                            <div class="modal-value">${order.vehicleType || "-"}</div>
+                            <div class="modal-value">${vehicleType}</div>
                         </div>
                     </div>
                 </div>
@@ -747,10 +779,10 @@
             sendToWebView({
                 action: "history_detail",
                 orderID: order.id,
-                driverName: order.driverName || "",
-                driverPhone: order.driverPhone || "",
-                vehicleNumber: order.vehicleNumber || "",
-                vehicleType: order.vehicleType || ""
+                driverName: driverName,
+                driverPhone: driverPhone,
+                vehicleNumber: vehicleNumber,
+                vehicleType: vehicleType
             });
         }
         
@@ -782,30 +814,52 @@
         
         // Inisialisasi halaman
         document.addEventListener('DOMContentLoaded', function() {
+            // Validasi parameter
             if (!userId) {
+                showError("User ID tidak ditemukan dalam parameter URL");
                 showNoDataMessage("User ID Tidak Ditemukan");
                 return;
             }
             
-            // Muat riwayat perjalanan
-            loadTravelHistory();
+            if (!firebaseConfigEncoded) {
+                showError("Konfigurasi Firebase tidak ditemukan dalam parameter URL");
+                showNoDataMessage("Konfigurasi Tidak Valid");
+                return;
+            }
             
-            // Tambahkan event listener untuk tombol filter
-            document.querySelectorAll('.filter-btn').forEach(button => {
-                button.addEventListener('click', function() {
-                    // Hapus class active dari semua tombol
-                    document.querySelectorAll('.filter-btn').forEach(btn => {
-                        btn.classList.remove('active');
+            try {
+                // Dekode konfigurasi Firebase
+                const firebaseConfig = JSON.parse(decodeURIComponent(firebaseConfigEncoded));
+                
+                // Inisialisasi Firebase
+                firebase.initializeApp(firebaseConfig);
+                console.log("Firebase initialized successfully");
+                
+                // Muat riwayat perjalanan
+                loadTravelHistory();
+                
+                // Tambahkan event listener untuk tombol filter
+                document.querySelectorAll('.filter-btn').forEach(button => {
+                    button.addEventListener('click', function() {
+                        // Hapus class active dari semua tombol
+                        document.querySelectorAll('.filter-btn').forEach(btn => {
+                            btn.classList.remove('active');
+                        });
+                        
+                        // Tambahkan class active ke tombol yang diklik
+                        this.classList.add('active');
+                        
+                        // Muat riwayat dengan filter yang dipilih
+                        const filter = this.getAttribute('data-filter');
+                        loadTravelHistory(filter);
                     });
-                    
-                    // Tambahkan class active ke tombol yang diklik
-                    this.classList.add('active');
-                    
-                    // Muat riwayat dengan filter yang dipilih
-                    const filter = this.getAttribute('data-filter');
-                    loadTravelHistory(filter);
                 });
-            });
+                
+            } catch (error) {
+                console.error("Error initializing Firebase:", error);
+                showError("Gagal menginisialisasi Firebase. Pastikan konfigurasi valid.");
+                showNoDataMessage("Inisialisasi Gagal");
+            }
         });
     </script>
 </body>

@@ -7,6 +7,7 @@
     <!-- Sertakan Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -16,7 +17,7 @@
         }
         
         body {
-            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             min-height: 100vh;
             padding: 20px;
             color: #333;
@@ -29,209 +30,149 @@
         
         header {
             text-align: center;
-            padding: 30px 0;
-            color: white;
+            padding: 20px 0;
+            margin-bottom: 20px;
         }
         
         header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            font-size: 2.2rem;
+            margin-bottom: 5px;
+            color: #2c3e50;
         }
         
         header p {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
+            color: #7f8c8d;
             max-width: 600px;
             margin: 0 auto;
-            opacity: 0.9;
         }
         
         .history-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+            gap: 15px;
         }
         
         .no-history {
             background-color: white;
-            border-radius: 15px;
-            padding: 40px;
+            border-radius: 10px;
+            padding: 30px;
             text-align: center;
             grid-column: 1 / -1;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
         }
         
         .no-history h2 {
-            font-size: 1.8rem;
-            color: #6a11cb;
-            margin-bottom: 15px;
+            font-size: 1.6rem;
+            color: #3498db;
+            margin-bottom: 10px;
         }
         
         .no-history p {
-            font-size: 1.1rem;
-            color: #666;
+            font-size: 1rem;
+            color: #7f8c8d;
         }
         
         .card {
             background-color: white;
-            border-radius: 15px;
+            border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            display: flex;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 120px;
         }
         
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
         }
         
-        .card-header {
-            padding: 20px;
+        .card-left {
+            width: 100px;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .vehicle-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
+            justify-content: center;
+            padding: 10px;
         }
         
         .vehicle-icon {
-            font-size: 2rem;
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #f0f7ff;
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            color: #3498db;
         }
         
-        .vehicle-name {
-            font-weight: 600;
-            font-size: 1.1rem;
+        .date {
+            font-size: 0.8rem;
+            text-align: center;
+            color: #7f8c8d;
+            font-weight: 500;
         }
         
-        .date-time {
-            font-size: 0.9rem;
-            color: #666;
-            text-align: right;
-        }
-        
-        .date-time .date {
-            font-weight: 600;
-            color: #2575fc;
-        }
-        
-        .card-body {
-            padding: 20px;
+        .card-center {
+            flex: 1;
+            padding: 15px 10px;
+            border-left: 1px solid #eee;
+            border-right: 1px solid #eee;
         }
         
         .route {
             display: flex;
             align-items: center;
-            margin-bottom: 20px;
-            background: linear-gradient(to right, #f8f9ff, #eef4ff);
-            padding: 15px;
-            border-radius: 10px;
+            margin-bottom: 10px;
         }
         
         .from, .to {
-            flex: 1;
-        }
-        
-        .from {
-            text-align: right;
-            padding-right: 15px;
-            border-right: 2px dashed #2575fc;
-        }
-        
-        .to {
-            padding-left: 15px;
-        }
-        
-        .route-label {
-            font-size: 0.85rem;
-            color: #666;
-            margin-bottom: 5px;
-        }
-        
-        .route-value {
             font-weight: 600;
-            font-size: 1.05rem;
+            font-size: 0.95rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 150px;
         }
         
         .arrow {
-            color: #2575fc;
-            font-size: 1.5rem;
-            padding: 0 10px;
+            margin: 0 8px;
+            color: #95a5a6;
+            font-size: 1rem;
         }
         
-        .driver-info {
+        .driver {
             display: flex;
             align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
-            padding: 15px;
-            background-color: #f8f9ff;
-            border-radius: 10px;
+            font-size: 0.9rem;
+            color: #7f8c8d;
         }
         
-        .driver-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-color: #2575fc;
+        .driver i {
+            margin-right: 6px;
+            color: #3498db;
+        }
+        
+        .card-right {
+            width: 120px;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-        
-        .driver-details {
-            flex: 1;
-        }
-        
-        .driver-name {
-            font-weight: 600;
-            font-size: 1.1rem;
-            margin-bottom: 3px;
-        }
-        
-        .vehicle-number {
-            background-color: #2575fc;
-            color: white;
-            padding: 3px 10px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            display: inline-block;
-        }
-        
-        .card-footer {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 15px 20px;
-            border-top: 1px solid #eee;
+            padding: 10px;
         }
         
         .price {
             font-weight: 700;
-            font-size: 1.3rem;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
             color: #2ecc71;
+            text-align: center;
         }
         
         .status {
-            padding: 6px 15px;
+            padding: 5px 12px;
             border-radius: 20px;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
+            width: fit-content;
         }
         
         .status-selesai {
@@ -249,16 +190,16 @@
             color: #383d41;
         }
         
-        .card.selesai .card-header {
-            background-color: #d4edda;
+        .card.selesai .card-left {
+            background-color: rgba(212, 237, 218, 0.3);
         }
         
-        .card.dibatalkan .card-header {
-            background-color: #f8d7da;
+        .card.dibatalkan .card-left {
+            background-color: rgba(248, 215, 218, 0.3);
         }
         
-        .card.pending .card-header {
-            background-color: #e2e3e5;
+        .card.pending .card-left {
+            background-color: rgba(226, 227, 229, 0.3);
         }
         
         .loading {
@@ -268,17 +209,40 @@
         }
         
         .spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid rgba(255, 255, 255, 0.3);
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(52, 152, 219, 0.2);
             border-radius: 50%;
-            border-top-color: #2575fc;
+            border-top-color: #3498db;
             animation: spin 1s ease-in-out infinite;
-            margin: 0 auto 20px;
+            margin: 0 auto 15px;
         }
         
         @keyframes spin {
             to { transform: rotate(360deg); }
+        }
+        
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+        
+        .filter-btn {
+            padding: 8px 15px;
+            border-radius: 20px;
+            background: white;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn.active {
+            background: #3498db;
+            color: white;
+            border-color: #3498db;
         }
         
         @media (max-width: 768px) {
@@ -286,12 +250,54 @@
                 grid-template-columns: 1fr;
             }
             
-            header h1 {
-                font-size: 2rem;
+            .card {
+                height: auto;
+                flex-direction: column;
             }
             
-            header p {
-                font-size: 1rem;
+            .card-left, .card-center, .card-right {
+                width: 100%;
+                border: none;
+                border-bottom: 1px solid #eee;
+            }
+            
+            .card-left {
+                flex-direction: row;
+                justify-content: space-between;
+                padding: 10px 15px;
+            }
+            
+            .card-center {
+                padding: 15px;
+            }
+            
+            .card-right {
+                flex-direction: row;
+                justify-content: space-between;
+                padding: 10px 15px;
+            }
+            
+            .vehicle-icon {
+                margin-bottom: 0;
+            }
+            
+            .from, .to {
+                max-width: 130px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .filter-container {
+                flex-wrap: wrap;
+            }
+            
+            header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .from, .to {
+                max-width: 120px;
+                font-size: 0.9rem;
             }
         }
     </style>
@@ -300,8 +306,15 @@
     <div class="container">
         <header>
             <h1>Riwayat Perjalanan</h1>
-            <p>Berikut adalah riwayat perjalanan yang pernah Anda lakukan</p>
+            <p>Daftar perjalanan yang pernah Anda lakukan</p>
         </header>
+        
+        <div class="filter-container">
+            <button class="filter-btn active" data-filter="all">Semua</button>
+            <button class="filter-btn" data-filter="selesai">Selesai</button>
+            <button class="filter-btn" data-filter="dibatalkan_penumpang">Dibatalkan</button>
+            <button class="filter-btn" data-filter="pending">Pending</button>
+        </div>
         
         <div class="history-container">
             <div class="loading">
@@ -313,6 +326,8 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            let historyData = [];
+            
             // Fungsi untuk mendapatkan parameter dari URL
             function getUrlParams() {
                 const params = new URLSearchParams(window.location.search);
@@ -322,19 +337,27 @@
                 };
             }
             
-            // Fungsi untuk memformat timestamp
-            function formatTimestamp(timestamp) {
+            // Fungsi untuk memformat tanggal
+            function formatDate(timestamp) {
                 if (!timestamp) return '-';
                 
                 const date = new Date(timestamp);
-                const options = { 
-                    year: 'numeric', 
-                    month: 'long', 
-                    day: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit'
-                };
-                return date.toLocaleDateString('id-ID', options);
+                const day = date.getDate().toString().padStart(2, '0');
+                const month = (date.getMonth() + 1).toString().padStart(2, '0');
+                const year = date.getFullYear();
+                
+                return `${day}/${month}/${year}`;
+            }
+            
+            // Fungsi untuk memformat waktu
+            function formatTime(timestamp) {
+                if (!timestamp) return '-';
+                
+                const date = new Date(timestamp);
+                const hours = date.getHours().toString().padStart(2, '0');
+                const minutes = date.getMinutes().toString().padStart(2, '0');
+                
+                return `${hours}:${minutes}`;
             }
             
             // Fungsi untuk memformat harga
@@ -346,38 +369,35 @@
                 }).format(price);
             }
             
-            // Fungsi untuk mendapatkan inisial nama
-            function getInitials(name) {
-                if (!name) return 'D';
-                const parts = name.split(' ');
-                let initials = parts[0][0];
-                if (parts.length > 1) initials += parts[parts.length-1][0];
-                return initials;
-            }
-            
             // Fungsi untuk mendapatkan ikon kendaraan
             function getVehicleIcon(vehicle) {
-                if (vehicle === 'mobil') return '🚗';
-                if (vehicle === 'motor') return '🛵';
-                return '🚕';
+                if (vehicle === 'mobil') return '<i class="fas fa-car"></i>';
+                if (vehicle === 'motor') return '<i class="fas fa-motorcycle"></i>';
+                return '<i class="fas fa-taxi"></i>';
             }
             
-            // Fungsi untuk merender riwayat
-            function renderHistory(history) {
+            // Fungsi untuk merender riwayat dengan filter
+            function renderHistory(filter = 'all') {
                 const container = document.querySelector('.history-container');
+                
+                // Filter data
+                const filteredData = filter === 'all' 
+                    ? historyData 
+                    : historyData.filter(item => item.status === filter);
+                
                 container.innerHTML = '';
                 
-                if (history.length === 0) {
+                if (filteredData.length === 0) {
                     container.innerHTML = `
                         <div class="no-history">
-                            <h2>Belum ada riwayat perjalanan</h2>
-                            <p>Anda belum memiliki riwayat perjalanan. Mulai pesan perjalanan untuk melihat riwayat di sini.</p>
+                            <h2>Tidak ada perjalanan</h2>
+                            <p>Tidak ditemukan riwayat perjalanan dengan status ini</p>
                         </div>
                     `;
                     return;
                 }
                 
-                history.forEach(order => {
+                filteredData.forEach(order => {
                     // Tentukan kelas status
                     let statusClass = '';
                     let statusText = '';
@@ -394,46 +414,34 @@
                     }
                     
                     // Format data
-                    const formattedDate = formatTimestamp(order.timestamp);
+                    const formattedDate = formatDate(order.timestamp);
+                    const formattedTime = formatTime(order.timestamp);
                     const formattedPrice = formatPrice(order.totalPrice);
                     const vehicleIcon = getVehicleIcon(order.vehicle);
-                    const driverInitials = getInitials(order.driverName);
                     
                     container.innerHTML += `
                         <div class="card ${statusClass}">
-                            <div class="card-header">
-                                <div class="vehicle-info">
-                                    <div class="vehicle-icon">${vehicleIcon}</div>
-                                    <div class="vehicle-name">${order.vehicle || 'Kendaraan'}</div>
-                                </div>
-                                <div class="date-time">
-                                    <div class="date">${formattedDate}</div>
+                            <div class="card-left">
+                                <div class="vehicle-icon">${vehicleIcon}</div>
+                                <div class="date">
+                                    <div>${formattedDate}</div>
+                                    <div>${formattedTime}</div>
                                 </div>
                             </div>
                             
-                            <div class="card-body">
+                            <div class="card-center">
                                 <div class="route">
-                                    <div class="from">
-                                        <div class="route-label">Dari</div>
-                                        <div class="route-value">${order.from || '-'}</div>
-                                    </div>
+                                    <div class="from">${order.from || '-'}</div>
                                     <div class="arrow">→</div>
-                                    <div class="to">
-                                        <div class="route-label">Ke</div>
-                                        <div class="route-value">${order.to || '-'}</div>
-                                    </div>
+                                    <div class="to">${order.to || '-'}</div>
                                 </div>
-                                
-                                <div class="driver-info">
-                                    <div class="driver-avatar">${driverInitials}</div>
-                                    <div class="driver-details">
-                                        <div class="driver-name">${order.driverName || 'Driver'}</div>
-                                        <div class="vehicle-number">${order.vehicleNumber || 'NOPOL'}</div>
-                                    </div>
+                                <div class="driver">
+                                    <i class="fas fa-user"></i>
+                                    ${order.driverName || 'Driver tidak tersedia'}
                                 </div>
                             </div>
                             
-                            <div class="card-footer">
+                            <div class="card-right">
                                 <div class="price">${formattedPrice}</div>
                                 <div class="status status-${statusClass}">${statusText}</div>
                             </div>
@@ -447,7 +455,7 @@
                 const { userID, firebaseConfig } = getUrlParams();
                 
                 if (!userID || !firebaseConfig.apiKey) {
-                    renderHistory([]);
+                    renderHistory();
                     return;
                 }
                 
@@ -464,10 +472,10 @@
                     const orders = snapshot.val();
                     
                     // Filter berdasarkan userID
-                    const userHistory = [];
+                    historyData = [];
                     for (const orderId in orders) {
                         if (orders[orderId].userID === userID) {
-                            userHistory.push({
+                            historyData.push({
                                 id: orderId,
                                 ...orders[orderId]
                             });
@@ -475,10 +483,20 @@
                     }
                     
                     // Urutkan berdasarkan timestamp (terbaru pertama)
-                    userHistory.sort((a, b) => b.timestamp - a.timestamp);
+                    historyData.sort((a, b) => b.timestamp - a.timestamp);
                     
                     // Render data
-                    renderHistory(userHistory);
+                    renderHistory();
+                    
+                    // Setup event listeners untuk filter
+                    document.querySelectorAll('.filter-btn').forEach(btn => {
+                        btn.addEventListener('click', function() {
+                            document.querySelectorAll('.filter-btn').forEach(b => 
+                                b.classList.remove('active'));
+                            this.classList.add('active');
+                            renderHistory(this.dataset.filter);
+                        });
+                    });
                 } catch (error) {
                     console.error('Error fetching history:', error);
                     document.querySelector('.history-container').innerHTML = `
